@@ -3,6 +3,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Tetrimino.h"
 
 
 class Game
@@ -14,6 +16,8 @@ private:
 	SDL_Renderer* m_pRenderer = 0;
 	int m_currentFrame;
 	TextureManager m_textureManager;
+	GameObject m_gameObject;
+	Tetrimino m_tetrimino;
 
 public:
 	Game();

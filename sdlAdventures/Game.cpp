@@ -30,11 +30,13 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 				//m_textureManager.load("assets/animate-alpha.png", "animate", m_pRenderer);
 				if (!TheTextureManager::Instance()->load("assets/animate-alpha.png",
 					"animate", m_pRenderer))
+
+					m_gameObject.load(100, 100, 128, 82, "animate");
+					m_tetrimino.load(300, 300, 128, 82, "animate");
 				{
 					return false;
 				}
 
-				TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
 			}
 			else
 			{
@@ -64,8 +66,8 @@ void Game::render() {
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
 
-	m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
-	m_textureManager.drawframe("animate", 100, 100, 128, 82, 1, m_currentFrame, m_pRenderer);
+	m_gameObject.draw(m_pRenderer);
+	m_tetrimino.draw(m_pRenderer);
 
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
@@ -95,7 +97,8 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+	m_gameObject.update();
+	m_tetrimino.update();
 }
 
 bool Game::getIsRunning() {
