@@ -1,6 +1,8 @@
 #include "Game.h"
 
+#include <Windows.h>
 #include<iostream>
+#include <sstream>
 
 Game::Game(){}
 
@@ -25,37 +27,44 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 
 			if (m_pRenderer != 0) {
 				std::cout << "renderer creation success\n";
-				SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
+				SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
 
-				//m_textureManager.load("assets/animate-alpha.png", "animate", m_pRenderer);
-				if (!TheTextureManager::Instance()->load("assets/animate-alpha.png",
+				if (!TheTextureManager::Instance()->load("assets/animate.png",
 					"animate", m_pRenderer))
-
-					m_gameObject.load(100, 100, 128, 82, "animate");
-					m_tetrimino.load(300, 300, 128, 82, "animate");
 				{
+
+					OutputDebugString("Texture manager init fail");
+					std::cout << "Texture manager init fail" << std::endl;
 					return false;
 				}
-
+				m_gameObject.load(100, 100, 128, 82, "animate");
+				m_tetrimino.load(300, 300, 128, 82, "animate");
 			}
 			else
 			{
-				std::cout << "renderer init fail\n";
+				std::cout << "renderer init fail" << std::endl;
+				OutputDebugString("renderer init fail");
+				m_bRunning = true;
 				return false; // renderer init fail
 			}
 		}
 		else
 		{
-			std::cout << "window init fail\n";
+			std::cout << "window init fail" << std::endl;
+			OutputDebugString("window init fail");
+			m_bRunning = true;
 			return false;
 		}
 	}
 	else
 	{
-		std::cout << "SDL init fail\n";
+		std::cout << "SDL init fail" << std::endl;
+		OutputDebugString("SDL init fail");
 		return false; // could not initialize sdl
+		m_bRunning = true;
 	}
 
+	OutputDebugString("init success\n");
 	std::cout << "init success\n";
 	m_bRunning = true;
 

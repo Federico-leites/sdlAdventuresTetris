@@ -1,7 +1,5 @@
 #include "Tetrimino.h"
 
-
-
 Tetrimino::Tetrimino()
 {
 }
@@ -11,7 +9,7 @@ Tetrimino::~Tetrimino()
 {
 }
 
-void GameObject::load(int x, int y, int width, int height, std::string textureID)
+void Tetrimino::load(int x, int y, int width, int height, std::string textureID)
 {
 	GameObject::load(x, y, width, height, textureID);
 }

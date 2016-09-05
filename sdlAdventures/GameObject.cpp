@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include "TextureManager.h"
 
 GameObject::GameObject()
 {
@@ -19,11 +18,20 @@ void GameObject::load(int x, int y, int width, int height, std::string textureID
 	m_textureID = textureID;
 
 	m_currentFrame = 1;
-	m_currentFrame = 1;
 }
 
 void GameObject::draw(SDL_Renderer* pRenderer)
 {
 	TheTextureManager::Instance()->drawframe(m_textureID, m_x, m_y, m_width, m_height,
 		m_currentRow, m_currentFrame, pRenderer);
+}
+
+void GameObject::update()
+{
+	m_x -= 1;
+}
+
+void GameObject::clean()
+{	
+	// game object clean code
 }

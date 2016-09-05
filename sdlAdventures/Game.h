@@ -14,8 +14,6 @@ private:
 
 	SDL_Window* m_pWindow = 0;
 	SDL_Renderer* m_pRenderer = 0;
-	int m_currentFrame;
-	TextureManager m_textureManager;
 	GameObject m_gameObject;
 	Tetrimino m_tetrimino;
 

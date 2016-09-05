@@ -5,10 +5,12 @@ TextureManager* TextureManager::s_pInstance = 0;
 bool TextureManager::load(std::string fileName, std::string id,
 	SDL_Renderer* pRenderer)
 {
+	OutputDebugString(fileName.c_str());
 	SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
 
 	if (pTempSurface == 0)
 	{
+		OutputDebugString("pTempSurface fail");
 		return false;
 	}
 
@@ -20,6 +22,7 @@ bool TextureManager::load(std::string fileName, std::string id,
 		m_textureMap[id] = pTexture;
 		return true;
 	}
+	OutputDebugString("error creating texture from file");
 	return false;
 }
 
