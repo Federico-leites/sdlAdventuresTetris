@@ -136,7 +136,9 @@
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\animate-alpha.png" />
     <Image Include="assets\animate.bmp" />
+    <Image Include="assets\animate.png" />
     <Image Include="assets\rider.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

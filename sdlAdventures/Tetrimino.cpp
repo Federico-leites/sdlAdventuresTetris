@@ -24,7 +24,7 @@ void Tetrimino::draw(SDL_Renderer* pRenderer)
 
 void Tetrimino::update()
 {
-	GameObject::update();
+	//GameObject::update();
 	// tetrimino specific update code
 	m_x += 1;
 }

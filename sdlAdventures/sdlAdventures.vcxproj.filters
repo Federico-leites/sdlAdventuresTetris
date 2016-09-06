@@ -55,5 +55,11 @@
     <Image Include="assets\animate.bmp">
       <Filter>assets</Filter>
     </Image>
+    <Image Include="assets\animate.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\animate-alpha.png">
+      <Filter>assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>
