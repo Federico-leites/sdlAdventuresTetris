@@ -6,6 +6,8 @@
 
 Game::Game(){}
 
+Game* Game::s_pInstance = 0;
+
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, bool fullScreen)
 {
 	int flags = 0;
@@ -36,9 +38,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 					OutputDebugString("Texture manager init fail");
 					std::cout << "Texture manager init fail" << std::endl;
 					return false;
-				}
-				m_gameObject.load(100, 100, 128, 82, "animate");
-				m_tetrimino.load(300, 300, 128, 82, "animate");
+				}				
+				m_gameObjects.push_back(new Tetrimino(new Loader(100, 100, 128, 82, "animate")));
 			}
 			else
 			{
@@ -75,11 +76,21 @@ void Game::render() {
 	// clear the window to black
 	SDL_RenderClear(m_pRenderer);
 
-	m_gameObject.draw(m_pRenderer);
-	m_tetrimino.draw(m_pRenderer);
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+	{
+		m_gameObjects[i]->draw();
+	}
 
 	// show the window
 	SDL_RenderPresent(m_pRenderer);
+}
+
+void Game::draw() 
+{
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+	{
+		m_gameObjects[i]->draw();
+	}
 }
 
 void Game::clean(){
@@ -106,8 +117,10 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	m_gameObject.update();
-	m_tetrimino.update();
+	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+	{
+		m_gameObjects[i]->update();
+	}
 }
 
 bool Game::getIsRunning() {

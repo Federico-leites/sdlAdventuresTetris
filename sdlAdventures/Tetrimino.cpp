@@ -1,7 +1,8 @@
 #include "Tetrimino.h"
 
-Tetrimino::Tetrimino()
+Tetrimino::Tetrimino(const Loader* pParams): SDLGameObject(pParams)
 {
+
 }
 
 
@@ -9,28 +10,21 @@ Tetrimino::~Tetrimino()
 {
 }
 
-void Tetrimino::load(int x, int y, int width, int height, std::string textureID)
-{
-	GameObject::load(x, y, width, height, textureID);
-}
 
-
-void Tetrimino::draw(SDL_Renderer* pRenderer)
+void Tetrimino::draw()
 {
-	GameObject::draw(pRenderer);
-	// tetrimino specific draw code
+	SDLGameObject::draw();
 }
 
 
 void Tetrimino::update()
 {
-	//GameObject::update();
-	// tetrimino specific update code
-	m_x += 1;
+	m_position -= 1;
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Tetrimino::clean()
 {
-	GameObject::clean();
+	SDLGameObject::clean();
 	// tetrimino specific clean code
 }

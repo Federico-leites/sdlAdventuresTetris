@@ -3,19 +3,34 @@
 
 Game* g_game = 0;
 
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
+
 int main(int argc, char* args[]) {
-	g_game = new Game();
+	Uint32 frameStart, frameTime;
 
-	g_game->init("Chapter 1", 100, 100, 640, 580, false);
-
-	while (g_game->getIsRunning())
+	if (Tetris::Instance()->init("Level 1", 100, 100, 640, 480, false))
 	{
-		g_game->handleEvents();
-		g_game->update();
-		g_game->render();
-		SDL_Delay(10);
+		while (Tetris::Instance()->getIsRunning())
+		{
+			frameStart = SDL_GetTicks();
+
+			Tetris::Instance()->handleEvents();
+			Tetris::Instance()->update();
+			Tetris::Instance()->render();
+			
+			frameTime = SDL_GetTicks() - frameStart;
+			if (frameTime < DELAY_TIME)
+			{
+				SDL_Delay((int)(DELAY_TIME - frameTime));
+			}			
+		}
+		Tetris::Instance()->clean();
 	}
-	g_game->clean();
+	else
+	{
+		return -1;
+	}
 
 	return 0;
 };
