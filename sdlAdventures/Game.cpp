@@ -1,12 +1,14 @@
 #include "Game.h"
+ 
 
 #include <Windows.h>
 #include<iostream>
 #include <sstream>
+#define DEBUG(x) OutputDebugString(x)
 
 Game::Game(){}
 
-Game* Game::s_pInstance = 0;
+Game* Game::s_pInstance = nullptr;
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, bool fullScreen)
 {
@@ -25,26 +27,28 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 		if (m_pWindow != 0)
 		{
 			std::cout << "window creation success\n";
-			m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
+			m_gameRenderer = new Renderer(m_pWindow);
 
-			if (m_pRenderer != 0) {
-				std::cout << "renderer creation success\n";
-				SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
 
-				if (!TheTextureManager::Instance()->load("assets/animate.png",
-					"animate", m_pRenderer))
+			if (m_gameRenderer->isLibraryRendererReady()) {
+				std::cout << "renderer creation success" << std::endl;
+
+				//set background color
+				m_gameRenderer->setBackgroundColor(255, 255, 255, 255);
+
+				if (!m_gameRenderer->loadAsset("assets/animate.png", "animate"))
 				{
 
-					OutputDebugString("Texture manager init fail");
+					DEBUG("Loading asset fail");
 					std::cout << "Texture manager init fail" << std::endl;
 					return false;
 				}				
-				m_gameObjects.push_back(new Tetrimino(new Loader(100, 100, 128, 82, "animate")));
+				m_gameObjects.push_back(new Tetrimino(new Loader(100, 100, 128, 82, "animate"), *m_gameRenderer));
 			}
 			else
 			{
 				std::cout << "renderer init fail" << std::endl;
-				OutputDebugString("renderer init fail");
+				DEBUG("renderer init fail");
 				m_bRunning = true;
 				return false; // renderer init fail
 			}
@@ -52,7 +56,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 		else
 		{
 			std::cout << "window init fail" << std::endl;
-			OutputDebugString("window init fail");
+			DEBUG("window init fail");
 			m_bRunning = true;
 			return false;
 		}
@@ -60,12 +64,12 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 	else
 	{
 		std::cout << "SDL init fail" << std::endl;
-		OutputDebugString("SDL init fail");
+		DEBUG("SDL init fail");
 		return false; // could not initialize sdl
 		m_bRunning = true;
 	}
 
-	OutputDebugString("init success\n");
+	DEBUG("init success\n");
 	std::cout << "init success\n";
 	m_bRunning = true;
 
@@ -74,7 +78,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 
 void Game::render() {
 	// clear the window to black
+	// TODO move this to GameRenderer
 	SDL_RenderClear(m_pRenderer);
+
 
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
 	{
@@ -82,19 +88,17 @@ void Game::render() {
 	}
 
 	// show the window
+	// Move this to the GameRenderer
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void Game::draw() 
-{
+void Game::clean(){
+	std::cout << "cleaning game subsystems" << std::endl;
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
 	{
-		m_gameObjects[i]->draw();
+		delete &m_gameObjects[i];
 	}
-}
-
-void Game::clean(){
-	std::cout << "cleaning game subsystems\n";
+	delete m_gameRenderer;
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
@@ -129,4 +133,5 @@ bool Game::getIsRunning() {
 
 Game::~Game()
 {
+	
 }

@@ -1,15 +1,27 @@
 #include<SDL.h>
 #include "Game.h"
-
-Game* g_game = 0;
+#include <string>
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
 
+const char GAME_NAME[] = "Tetris";
+const int POS_X = 100;
+const int POS_Y = 100;
+const int GAME_WINDOW_WIDTH = 100;
+const int GAME_WINDOW_HEIGHT = 100;
+const bool GAME_OPTION_FULLSCREEN = false;
+
 int main(int argc, char* args[]) {
 	Uint32 frameStart, frameTime;
 
-	if (Tetris::Instance()->init("Level 1", 100, 100, 640, 480, false))
+	if (Tetris::Instance()->init(
+		GAME_NAME,
+		POS_X,
+		POS_Y,
+		GAME_WINDOW_WIDTH,
+		GAME_WINDOW_HEIGHT,
+		GAME_OPTION_FULLSCREEN))
 	{
 		while (Tetris::Instance()->getIsRunning())
 		{

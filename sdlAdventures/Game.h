@@ -2,7 +2,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
-#include "TextureManager.h"
+#include "Renderer.h"
 #include "GameObject.h"
 #include "SDLGameObject.h"
 #include "Tetrimino.h"
@@ -13,12 +13,15 @@ class Game
 {
 private:
 	Game();
-	~Game();
+	virtual ~Game();
 	bool m_bRunning;
 
-	SDL_Window* m_pWindow = 0;
-	SDL_Renderer* m_pRenderer = 0;
+	SDL_Window* m_pWindow = nullptr;
+	//todo remove m_pRenderer
+	SDL_Renderer* m_pRenderer = nullptr;
+
 	std::vector<GameObject*> m_gameObjects;
+	Renderer* m_gameRenderer;
 
 	static Game* s_pInstance;
 	
@@ -27,7 +30,7 @@ private:
 public:
 	static Game* Instance()
 	{
-		if (s_pInstance == 0)
+		if (s_pInstance == nullptr)
 		{
 			s_pInstance = new Game();
 		}
