@@ -6,10 +6,8 @@ class Tetrimino : public SDLGameObject
 {
 public:
 	Tetrimino(const Loader* pParams, Renderer& gameRenderer);
-	virtual void draw();
 	virtual void update();
-	virtual void clean();
 
-	virtual ~Tetrimino();
+	virtual ~Tetrimino() {};
 };
 

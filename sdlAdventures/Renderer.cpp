@@ -13,7 +13,7 @@ Renderer::Renderer(SDL_Window* window)
 
 Renderer::~Renderer()
 {
-	delete &m_textureManager;
+	//delete &m_textureManager;
 }
 
 void Renderer::drawAsset(std::string id, int x, int y, int width,
@@ -31,4 +31,14 @@ void Renderer::setBackgroundColor(int R, int G, int B, int A)
 bool Renderer::loadAsset(std::string filePath, std::string textureID)
 {
 	return m_textureManager->load(filePath, textureID, m_pRenderer);
+}
+
+void Renderer::clearScreen() 
+{
+	SDL_RenderClear(m_pRenderer);
+}
+
+void Renderer::showWindowScreen()
+{
+	SDL_RenderPresent(m_pRenderer);
 }

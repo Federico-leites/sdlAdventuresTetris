@@ -43,6 +43,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 					std::cout << "Texture manager init fail" << std::endl;
 					return false;
 				}				
+				// Loader class to be removed likely...
 				m_gameObjects.push_back(new Tetrimino(new Loader(100, 100, 128, 82, "animate"), *m_gameRenderer));
 			}
 			else
@@ -77,9 +78,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 }
 
 void Game::render() {
-	// clear the window to black
-	// TODO move this to GameRenderer
-	SDL_RenderClear(m_pRenderer);
+	// clear the window
+	m_gameRenderer->clearScreen();
 
 
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
@@ -88,8 +88,7 @@ void Game::render() {
 	}
 
 	// show the window
-	// Move this to the GameRenderer
-	SDL_RenderPresent(m_pRenderer);
+	m_gameRenderer->showWindowScreen();
 }
 
 void Game::clean(){

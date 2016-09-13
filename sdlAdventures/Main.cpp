@@ -8,8 +8,8 @@ const int DELAY_TIME = 1000.0f / FPS;
 const char GAME_NAME[] = "Tetris";
 const int POS_X = 100;
 const int POS_Y = 100;
-const int GAME_WINDOW_WIDTH = 100;
-const int GAME_WINDOW_HEIGHT = 100;
+const int GAME_WINDOW_WIDTH = 640;
+const int GAME_WINDOW_HEIGHT = 480;
 const bool GAME_OPTION_FULLSCREEN = false;
 
 int main(int argc, char* args[]) {

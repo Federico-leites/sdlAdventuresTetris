@@ -13,7 +13,7 @@ public:
 	virtual void update();
 	virtual void clean();
 
-	~SDLGameObject();
+	virtual ~SDLGameObject() {};
 
 protected:
 	Renderer& m_rGameRenderer;

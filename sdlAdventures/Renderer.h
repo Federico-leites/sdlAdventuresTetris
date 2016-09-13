@@ -19,6 +19,13 @@ public:
 	//loads assets to texture map
 	bool loadAsset(std::string filePath, std::string textureID);
 
+	// clears the screen
+	void clearScreen();
+
+	// show window screen 
+	// review
+	void showWindowScreen();
+
 private:
 	TextureManager* m_textureManager;
 	SDL_Window* m_pWindow;
