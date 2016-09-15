@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "SDLGameObject.h"
 #include "Tetrimino.h"
+#include "GameBoard.h"
 #include <vector>
 
 
@@ -25,7 +26,7 @@ private:
 
 	static Game* s_pInstance;
 	
-	void draw();
+	bool initGameBoard();
 
 public:
 	static Game* Instance()

@@ -35,16 +35,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 
 				//set background color
 				m_gameRenderer->setBackgroundColor(255, 255, 255, 255);
-
-				if (!m_gameRenderer->loadAsset("assets/animate.png", "animate"))
-				{
-
-					DEBUG("Loading asset fail");
-					std::cout << "Texture manager init fail" << std::endl;
-					return false;
-				}				
-				// Loader class to be removed likely...
-				m_gameObjects.push_back(new Tetrimino(new Loader(100, 100, 128, 82, "animate"), *m_gameRenderer));
+				initGameBoard();
 			}
 			else
 			{
@@ -80,8 +71,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 void Game::render() {
 	// clear the window
 	m_gameRenderer->clearScreen();
-
-
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
 	{
 		m_gameObjects[i]->draw();
@@ -124,6 +113,19 @@ void Game::update() {
 	{
 		m_gameObjects[i]->update();
 	}
+}
+
+bool Game::initGameBoard()
+{
+	if (!m_gameRenderer->loadAsset("assets/board.png", "gameBoardBackground"))
+	{
+
+		DEBUG("Error loading Game Background asset");
+		std::cout << "Texture manager init fail" << std::endl;
+		return false;
+	}
+	
+	m_gameObjects.push_back(new GameBoard(new Loader(0, 0, 320, 640, "gameBoardBackground"), *m_gameRenderer, 20, 10));
 }
 
 bool Game::getIsRunning() {
