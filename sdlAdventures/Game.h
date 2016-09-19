@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SDL.h"
-#include "SDL_image.h"
+#include <SDL.h>
+#include <SDL_image.h>
 #include "Renderer.h"
 #include "GameObject.h"
 #include "SDLGameObject.h"
@@ -27,6 +27,7 @@ private:
 	static Game* s_pInstance;
 	
 	bool initGameBoard();
+	bool loadAsset(std::string path, std::string id);
 
 public:
 	static Game* Instance()

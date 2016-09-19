@@ -8,7 +8,7 @@ m_rGameRenderer(gameRenderer), m_position(pParams->getX(), pParams->getY())
 	m_height = pParams->getHeight();
 
 	m_currentRow = 1;
-	m_currentFrame =1;
+	m_currentFrame =0;
 	
 	m_textureID = pParams->getTextureID();
 }

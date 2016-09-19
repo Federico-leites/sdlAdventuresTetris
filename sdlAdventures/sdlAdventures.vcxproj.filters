@@ -39,6 +39,9 @@
     <ClCompile Include="GameBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -68,6 +71,9 @@
     <ClInclude Include="GameBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\rider.bmp">
@@ -80,6 +86,12 @@
       <Filter>assets</Filter>
     </Image>
     <Image Include="assets\animate-alpha.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\board.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\board.jpg">
       <Filter>assets</Filter>
     </Image>
   </ItemGroup>

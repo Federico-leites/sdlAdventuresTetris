@@ -1,6 +1,7 @@
 #pragma once
 #include <math.h>
 
+//ToDo copy definition code to source file.
 class Vector2D
 {
 public:

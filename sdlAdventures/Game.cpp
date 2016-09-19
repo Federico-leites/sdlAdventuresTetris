@@ -36,6 +36,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, bo
 				//set background color
 				m_gameRenderer->setBackgroundColor(255, 255, 255, 255);
 				initGameBoard();
+				loadAsset("assets/red.png", "red");
 			}
 			else
 			{
@@ -88,7 +89,10 @@ void Game::clean(){
 	}
 	delete m_gameRenderer;
 	SDL_DestroyWindow(m_pWindow);
+	
+	// Todo destroy renderer inside Renderer class
 	SDL_DestroyRenderer(m_pRenderer);
+	
 	SDL_Quit();
 }
 
@@ -117,7 +121,7 @@ void Game::update() {
 
 bool Game::initGameBoard()
 {
-	if (!m_gameRenderer->loadAsset("assets/board.png", "gameBoardBackground"))
+	if (!m_gameRenderer->loadAsset("assets/board.png", "board"))
 	{
 
 		DEBUG("Error loading Game Background asset");
@@ -125,7 +129,18 @@ bool Game::initGameBoard()
 		return false;
 	}
 	
-	m_gameObjects.push_back(new GameBoard(new Loader(0, 0, 320, 640, "gameBoardBackground"), *m_gameRenderer, 20, 10));
+	m_gameObjects.push_back(new GameBoard(new Loader(0, 0, 320, 640, "board"), *m_gameRenderer, 20, 10));
+}
+
+bool Game::loadAsset(std::string path, std::string id)
+{
+	if (!m_gameRenderer->loadAsset(path, id))
+	{
+
+		DEBUG("Error asset");
+		std::cout << "Texture manager init fail" << std::endl;
+		return false;
+	}
 }
 
 bool Game::getIsRunning() {
